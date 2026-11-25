@@ -1,0 +1,30 @@
+# Python & OS caches
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Personal secrets & local configuration (never commit)
+*.local
+.env
+.env.*
+*api_key*
+*secret*
+credentials*.json
+*.pem
+*.key
+
+# Local databases & runtime data
+data/
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+
+# Local backups, screenshots, logs & design-tool state
+artifacts/
+.hallmark/
+.impeccable/
+*.log
+before*
+*.tar.gz

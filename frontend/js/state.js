@@ -1,0 +1,188 @@
+/**
+ * Lightweight state container for the workbench.
+ */
+
+export const ROUTE_META = {
+  collection: {
+    eyebrow: "STAGE 01 · DATA COLLECTION",
+    title: "数据采集管理",
+    showScope: false,
+  },
+  preprocessing: {
+    eyebrow: "STAGE 02 · DATA PREPROCESSING",
+    title: "数据预处理",
+    showScope: false,
+  },
+  dashboard: {
+    eyebrow: "STAGE 03 · MARKET ANALYTICS",
+    title: "市场分析看板",
+    showScope: true,
+  },
+  scoring: {
+    eyebrow: "STAGE 04 · CANDIDATE SCORING",
+    title: "商品候选评分",
+    showScope: false,
+  },
+  print_verification: {
+    eyebrow: "STAGE 05 · PRINT PATTERN GROUPING",
+    title: "印花识别与方向归组",
+    showScope: false,
+  },
+  top10_directions: {
+    eyebrow: "STAGE 06 · TOP 10 PRINT DIRECTIONS",
+    title: "Top 10 印花方向输出",
+    showScope: false,
+  },
+};
+
+export const state = {
+  route: "dashboard",
+  health: null,
+  categories: [],
+  selectedDate: "",
+  availableDates: [],
+  category: "all",
+  dedupMode: "listing",
+  prepScope: "printable",
+  scatterScaleMode: "focused",
+  scatterSelectedCategories: null,
+  dashboardTableExpanded: false,
+  wordCloudPaused: typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+
+  // Dashboard cache
+  dashboardTab: "market",
+  overview: null,
+  productsPage: null,
+  signalsOverview: null,
+  signalsProductsPage: null,
+  signalsFilters: {
+    signal_type: "all",
+    tag_type: "all",
+    q: "",
+  },
+  signalsProductFilters: {
+    category: "all",
+    ai_status: "all",
+    q: "",
+    sort: "sales_desc",
+    page: 1,
+    page_size: 24,
+  },
+  signalsToast: null,
+  signalsAiRunning: false,
+  table: {
+    q: "",
+    anomaly: "all",
+    price_band: "all",
+    brand: "",
+    sort: "listing_sales_30d",
+    order: "desc",
+    page: 1,
+    page_size: 15,
+  },
+
+  // Collection state (Supabase cloud sync + team state)
+  collectionConfig: null,
+  collectionBatches: null,
+  collectionPlan: null,
+  collectionLastRun: null,
+  supabaseSettingsOpen: null,
+  collectionBatchesExpanded: false,
+  collectionForm: {
+    categories: [],
+    observed_date: "",
+    pages: 1,
+    range: 100,
+    budget_cap: 30,
+    mode: "dry_run",
+    simulate_partial_failure: false,
+  },
+  collectionSubmitting: false,
+
+  // Preprocessing state (Stage 02 / 03)
+  aiConfig: null,
+  preprocessingOverview: null,
+  preprocessingPage: null,
+  preprocessingRunning: false,
+  preprocessingAiRunning: false,
+  preprocessingToast: null,
+  preprocessingViewMode: "gallery",
+  preprocessingRulesOpen: false,
+  preprocessingMoreFiltersOpen: false,
+  preprocessingInitialQueueApplied: false,
+  preprocessingSelectedAsins: [],
+  preprocessingBatchReason: "solid_non_print",
+  preprocessingBatchNote: "",
+  preprocessingTable: {
+    category: "all",
+    eligibility: "needs_review",
+    auto_class: "all",
+    review_status: "all",
+    issue: "all",
+    ai_filter: "all",
+    q: "",
+    sort: "needs_review_first",
+    order: "desc",
+    page: 1,
+    page_size: 24,
+  },
+
+  // Stage 04 Candidate Scoring state
+  scoringInitialized: false,
+  scoringData: null,
+  scoringPresets: [],
+  scoringActivePresetId: "system_default",
+  scoringWeights: {
+    sales: 35,
+    opportunity: 25,
+    rating: 15,
+    freshness: 15,
+    price: 10,
+  },
+  scoringPriceRanges: {
+    t_shirt: { min: 15, max: 26 },
+    sweatshirt: { min: 26, max: 45 },
+  },
+  scoringFilters: {
+    category: "all",
+    confidence: "all",
+    q: "",
+    compareMode: "default",
+  },
+  scoringPreviousRanks: null,
+  scoringLoading: false,
+  scoringToast: null,
+  scoringUnrankedExpanded: false,
+  scoringIncompleteExpanded: false,
+  scoringTuningOpen: false,
+  scoringPage: 1,
+  scoringPageSize: 50,
+
+  // Stage 05 Print Directions state
+  directionsCandidates: null,
+  directionsList: null,
+  directionsSelectedAsins: [],
+  directionsExpandedIds: [],
+  directionsRightTab: "directions",
+  directionsShowStandaloneNotice: false,
+  directionsBasisOpen: false,
+  directionsShortlistedOnly: false,
+  directionsDetailModalId: null,
+  directionsAiTopN: 60,
+  directionsAiRunning: false,
+  directionsFilters: {
+    assigned: "unassigned",
+    top_n: 80,
+    category: "all",
+    preset_id: "",
+    q: "",
+    sort: "direction_score",
+  },
+  directionsToast: null,
+
+  // Stage 06 Top 10 Output & Handoff state
+  top10Data: null,
+  top10ExpandedIds: [],
+  top10EditingNoteId: null,
+  top10Toast: null,
+};
